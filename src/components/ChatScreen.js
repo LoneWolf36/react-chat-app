@@ -1,6 +1,7 @@
 import React from 'react'
 import Chatkit from '@pusher/chatkit'
 import MessageList from './MessageList'
+import SendMessageForm from './SendMessageForm'
 
 class ChatScreen extends React.Component {
     constructor() {
@@ -41,7 +42,10 @@ class ChatScreen extends React.Component {
 
     render() {
         return (
-            <MessageList messages={this.state.messages} />
+            <div>
+                <MessageList messages={this.state.messages} />
+                <SendMessageForm onSubmit={text => alert(text)} />
+            </div>
         )
     }
 }
