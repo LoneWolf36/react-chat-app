@@ -3,6 +3,7 @@ import Chatkit from '@pusher/chatkit'
 import MessageList from './components/MessageList'
 import SendMessageForm from './components/SendMessageForm'
 import TypingIndicator from './components/TypingIndicator'
+import WhosOnlineList from './components/WhosOnlineList'
 
 class ChatScreen extends React.Component {
     constructor() {
@@ -31,7 +32,7 @@ class ChatScreen extends React.Component {
             .then(currentUser => {
                 this.setState({ currentUser })
                 return currentUser.subscribeToRoom({
-                    roomId: 9259313,
+                    roomId: 9301820,
                     messageLimit: 100,
                     hooks: {
                         onNewMessage: message => {
@@ -49,7 +50,10 @@ class ChatScreen extends React.Component {
                                     username => username !== user.name
                                 )
                             })
-                        }
+                        },
+                        onUserCameOnline: () => this.forceUpdate(),
+                        onUserWentOffline: () => this.forceUpdate(),
+                        onUserJoined: () => this.forceUpdate()
                     }
                 })
             })
@@ -75,6 +79,9 @@ class ChatScreen extends React.Component {
     render() {
         return (
             <div>
+                <WhosOnlineList users={this.state.currentRoom.users} />
+                <p>
+                </p>
                 <MessageList messages={this.state.messages} />
                 <TypingIndicator usersWhoAreTyping={this.state.usersWhoAreTyping} />
                 <SendMessageForm onSubmit={this.sendMessage} onChange={this.sendTypingEvent} />
