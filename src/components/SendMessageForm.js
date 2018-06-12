@@ -1,27 +1,28 @@
 import React from 'react'
-
 class SendMessageForm extends React.Component {
-    constructor() {
-        super()
-        this.onChange = this.onChange.bind(this)
-        this.onSubmit = this.onSubmit.bind(this)
+    constructor(props) {
+        super(props)
         this.state = {
             text: ''
         }
+        this.onChange = this.onChange.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
     }
+
     onChange(e) {
-        this.setState({ message: e.target.value, })
+        this.setState({ text: e.target.value })
     }
     onSubmit(e) {
         e.preventDefault()
         this.props.onSubmit(this.state.text)
     }
+
     render() {
         return (
             <div>
                 <form onSubmit={this.onSubmit}>
-                    <input type="text" placeholder="Type a message..." onChange={this.onChange} />
-                    <input type="button" value="Send" />
+                    <input type="text" onChange={this.onChange} placeholder="Type a message..." />
+                    <input type="submit" value="Enter" />
                 </form>
             </div>
         )
